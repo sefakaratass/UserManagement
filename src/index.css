@@ -1,13 +1,18 @@
+/* Tüm sayfa için tam arka plan */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  background: linear-gradient(to right, #f0f4ff, #dfe8f5);
+  font-family: "Segoe UI", sans-serif;
+  min-height: 100vh;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* İçeriği ortaya yerleştir */
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  padding-top: 40px;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
