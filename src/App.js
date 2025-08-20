@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getUsers } from "./data/api";
-import Modal from "./Components/Modal/Modal";
+import Navbar from "./Components/Navbar/Navbar";
 import UserList from "./Components/UserList/UserList";
 import UserForm from "./Components/UserForm/UserForm";
-import Navbar from "./Components/Navbar/Navbar";
+import Modal from "./Components/Modal/Modal";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -19,15 +19,8 @@ function App() {
   }, []);
 
   const handleAddUser = (newUser) => {
-    setUsers((prevUsers) => [
-      ...prevUsers,
-      { ...newUser, id: prevUsers.length + 1 },
-    ]);
+    setUsers((prev) => [...prev, { ...newUser, id: prev.length + 1 }]);
     setIsModalOpen(false);
-  };
-
-  const handleDeleteUser = (id) => {
-    setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
 
   const handleEditUser = (user) => {
@@ -36,29 +29,34 @@ function App() {
   };
 
   const handleUpdateUser = (updatedUser) => {
-    setUsers((prevUsers) =>
-      prevUsers.map((user) => (user.id === updatedUser.id ? updatedUser : user))
+    setUsers((prev) =>
+      prev.map((u) => (u.id === updatedUser.id ? updatedUser : u))
     );
-    setIsModalOpen(false);
     setEditingUser(null);
+    setIsModalOpen(false);
+  };
+
+  const handleDeleteUser = (id) => {
+    setUsers((prev) => prev.filter((u) => u.id !== id));
   };
 
   return (
-    <div className="app-container">
-      <Navbar
-        onAddClick={() => {
-          setEditingUser(null);
-          setIsModalOpen(true);
-        }}
-      />
+    <div className="min-h-screen bg-gray-50">
+      <Navbar onAddClick={() => setIsModalOpen(true)} />
 
       <UserList
         users={users}
-        onDeleteUser={handleDeleteUser}
         onEditUser={handleEditUser}
+        onDeleteUser={handleDeleteUser}
       />
 
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setEditingUser(null);
+        }}
+      >
         <UserForm
           onAddUser={handleAddUser}
           onUpdateUser={handleUpdateUser}
@@ -68,4 +66,5 @@ function App() {
     </div>
   );
 }
+
 export default App;

@@ -60,8 +60,11 @@ function UserForm({ onAddUser, onUpdateUser, editingUser }) {
   }, [editingUser]);
 
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <h2 style={{ marginBottom: "20px" }}>
+    <form
+      onSubmit={formik.handleSubmit}
+      className="space-y-4 max-w-lg mx-auto p-6 bg-white rounded-lg shadow-lg animate-fadeIn"
+    >
+      <h2 className="text-xl font-bold text-center mb-4">
         {editingUser ? "Kullanıcı Düzenle" : "Yeni Kullanıcı Ekle"}
       </h2>
 
@@ -74,24 +77,17 @@ function UserForm({ onAddUser, onUpdateUser, editingUser }) {
         { label: "Şirket Adı", name: "company", type: "text" },
         { label: "Şehir", name: "city", type: "text" },
       ].map((field) => (
-        <div key={field.name} style={{ marginBottom: "12px" }}>
-          <label style={{ display: "block", marginBottom: "4px" }}>
-            {field.label}
-          </label>
+        <div key={field.name} className="flex flex-col">
+          <label className="mb-1 font-medium">{field.label}</label>
           <input
             name={field.name}
             type={field.type}
             onChange={formik.handleChange}
             value={formik.values[field.name]}
-            style={{
-              width: "100%",
-              padding: "8px 12px",
-              borderRadius: "6px",
-              border: "1px solid #ccc",
-            }}
+            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"
           />
           {formik.touched[field.name] && formik.errors[field.name] && (
-            <div style={{ color: "red", marginTop: "4px" }}>
+            <div className="text-red-500 text-sm mt-1">
               {formik.errors[field.name]}
             </div>
           )}
@@ -100,15 +96,7 @@ function UserForm({ onAddUser, onUpdateUser, editingUser }) {
 
       <button
         type="submit"
-        style={{
-          padding: "10px 20px",
-          background: "#3f51b5",
-          color: "#fff",
-          border: "none",
-          borderRadius: "6px",
-          cursor: "pointer",
-          marginTop: "10px",
-        }}
+        className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md font-semibold shadow hover:shadow-md transition-all duration-200"
       >
         {editingUser ? "Güncelle" : "Kaydet"}
       </button>
